@@ -15,6 +15,7 @@ class Gramatica():
         else:
             new_produccion = Produccion(nombre=nombre)
             new_produccion.addDerivacion(derivacion)
+            self.producciones.append(new_produccion)
 
     def verificarProduccion(self, nombre):
         var = False
@@ -31,7 +32,7 @@ class Gramatica():
     def imprimir(self):
         print('Nombre de la gramatica tipo 2: ' + self.Nombre)
         print('No terminales = {' + ','.join(self.no_Terminales) + '}')
-        print('Terminales = {' + ','.join(self.no_Terminales) + '}')
+        print('Terminales = {' + ','.join(self.terminales) + '}')
         print('No terminal inicial = ' + self.inicial)
         print('Producciones:')
         for produccion in self.producciones:
@@ -48,14 +49,25 @@ class Produccion():
 
     def imprimir(self):
         if len(self.derivaciones) > 1:
-            print(self.nombre + '->'+self.derivaciones[0], end='')
+            # valores = self.obtenerValores(0)
+            print(str(self.nombre) + '->\t' + ' '.join(self.obtenerValores(0)), end='\n')
             for i in range(1, len(self.derivaciones)):
-                print('\t|'+self.derivaciones[i], end='')
+                print('\t|' + ' '.join(self.obtenerValores(i)), end='\n')
             print('')
+        elif len(self.derivaciones) == 1:
+            print(str(self.nombre) + '->\t' + ' '.join(self.obtenerValores(0)), end='\n')
+
+    def obtenerValores(self, indice):
+        valores = []
+        simbolos = self.derivaciones[indice]
+        for simbolo in simbolos:
+            valores.append(simbolo.valor)
+        return valores
 
 
 class Derivacion():
     def __init__(self, tipo=None, valor=None):
         self.tipo = tipo
         self.valor = valor
+
 

@@ -8,10 +8,10 @@ if __name__ == '__main__':
     print('----------Proyecto 2---------')
     print('Wilmer Estuardo Vasquez Raxon')
     print('201800678')
-    while segundos != 0:
-        print(segundos)
-        time.sleep(1)
-        segundos = segundos - 1
+    # while segundos != 0:
+    #     print(segundos)
+    #     time.sleep(1)
+    #     segundos = segundos - 1
     opcion = 0
     print('¡Bienvenido!')
     while opcion != 6:
