@@ -34,10 +34,10 @@ def procesar_Gramatica(ruta):
                     simbolosDerivacion = []
                     for simbolo in derivacion:
                         if simbolo in no_Terminales:
-                            simbol = Derivacion(tipo="No Terminal", valor=simbolo)
+                            simbol = Simbolo(tipo="No Terminal", valor=simbolo)
                             simbolosDerivacion.append(simbol)
                         elif simbolo in terminales:
-                            simbol = Derivacion(tipo="Terminal", valor=simbolo)
+                            simbol = Simbolo(tipo="Terminal", valor=simbolo)
                             simbolosDerivacion.append(simbol)
 
                     new_Gramatica.addProduccion(produccion[0], simbolosDerivacion)

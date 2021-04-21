@@ -65,7 +65,7 @@ class Produccion():
         return valores
 
 
-class Derivacion():
+class Simbolo():
     def __init__(self, tipo=None, valor=None):
         self.tipo = tipo
         self.valor = valor
