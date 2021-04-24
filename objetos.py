@@ -18,16 +18,22 @@ class Gramatica():
             self.producciones.append(new_produccion)
 
     def verificarProduccion(self, nombre):
-        var = False
         for produccion in self.producciones:
             if produccion.nombre == nombre:
-                var = True
-        return var
+                return True
+        return False
+
+    def verificarNoTerminalProduce(self, noT, term):
+        for produccion in self.producciones:
+            if produccion.nombre == noT:
+                return produccion.verificarTerminal(term)
+        return False
 
     def obtenerProduccion(self, nombre):
         for produccion in self.producciones:
             if produccion.nombre == nombre:
                 return produccion
+        return None
 
     def imprimir(self):
         print('Nombre de la gramatica tipo 2: ' + self.Nombre)
@@ -38,11 +44,39 @@ class Gramatica():
         for produccion in self.producciones:
             produccion.imprimir()
 
+    def obtenerProduccionPorTerminal(self, terminal):
+        for produccion in self.producciones:
+            if produccion.verificarTerminal(terminal):
+                return produccion
+        return None
+
 
 class Produccion():
     def __init__(self, nombre=None):
         self.nombre = nombre
         self.derivaciones = []
+
+    def verificarTerminal(self, terminal):
+        for derivacion in self.derivaciones:
+            for simbolo in derivacion:
+                if simbolo.valor == terminal:
+                    return True
+        return False
+
+    def obtenerDerivacion(self, terminal):
+        for derivacion in self.derivaciones:
+            for simbolo in derivacion:
+                if simbolo.valor == terminal:
+                    return derivacion
+        return None
+
+    def obtenerNoTerminales(self):
+        noTerminales = []
+        for derivacion in self.derivaciones:
+            for simbolo in derivacion:
+                if simbolo.tipo == "No Terminal":
+                    noTerminales.append(simbolo.valor)
+        return noTerminales
 
     def addDerivacion(self, derivacion):
         self.derivaciones.append(derivacion)
