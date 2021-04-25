@@ -84,12 +84,12 @@ class Produccion():
     def imprimir(self):
         if len(self.derivaciones) > 1:
             # valores = self.obtenerValores(0)
-            print(str(self.nombre) + '->\t' + ' '.join(self.obtenerValores(0)), end='\n')
+            print(str(self.nombre) + '\t-> ' + ' '.join(self.obtenerValores(0)), end='\n')
             for i in range(1, len(self.derivaciones)):
-                print('\t|' + ' '.join(self.obtenerValores(i)), end='\n')
+                print('\t | ' + ' '.join(self.obtenerValores(i)), end='\n')
             print('')
         elif len(self.derivaciones) == 1:
-            print(str(self.nombre) + '->\t' + ' '.join(self.obtenerValores(0)), end='\n')
+            print(str(self.nombre) + '\t-> ' + ' '.join(self.obtenerValores(0)), end='\n')
 
     def obtenerValores(self, indice):
         valores = []
@@ -112,3 +112,9 @@ class Reporte():
         self.entrada = entrada
         self.transicion = transicion
 
+    def imprimir(self):
+        print("Iteracion: " +
+              str(self.iteracion) +
+              " Pila: "+self.pila +
+              " Entrada: "+self.entrada +
+              " Transicion: "+self.transicion)

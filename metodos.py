@@ -26,7 +26,7 @@ def mostrarInfoGramatica():
             print(str(i) + ") Gramatica: " + gramatica.Nombre)
             i += 1
 
-        seleccion = int(input("ingrese el numero: "))
+        seleccion = int(input())
         if 0 < seleccion <= len(gramaticas):
             gram = gramaticas[seleccion - 1]
             gram.imprimir()
@@ -186,7 +186,7 @@ def desplegarTablaHTML(reportes, nombre, resultado):
         f.write("<table style=\"width:100%\">\n")
         f.write("<tr>\n")
         f.write("<th><b> Iteracion </b></th>\n")
-        f.write("<th><b> Pila  </b></th>\n")
+        f.write("<th><b> Pila -> </b></th>\n")
         f.write("<th><b> Entrada </b></th>\n")
         f.write("<th><b> Trancision </b></th>\n")
         f.write("</tr>\n")

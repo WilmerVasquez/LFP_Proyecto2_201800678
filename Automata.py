@@ -129,8 +129,9 @@ class AutomataPila():
                                                                no_Transicion,
                                                                generarString(stack),
                                                                input[i]))
-
-                reportes.append(Reporte(no_Transicion, "", input[i], "i,$,$;p,#"))
+                report = Reporte(no_Transicion, "", input[i], "i,$,$;p,#")
+                reportes.append(report)
+                report.imprimir()
                 no_Transicion += 1
                 state = 'p'
             elif state == 'p':
@@ -142,7 +143,9 @@ class AutomataPila():
                                                                no_Transicion,
                                                                generarString(stack),
                                                                input[i]))
-                reportes.append(Reporte(no_Transicion, "#", input[i], "p,$,$;q,S"))
+                report = Reporte(no_Transicion, "#", input[i], "p,$,$;q,S")
+                reportes.append(report)
+                report.imprimir()
                 no_Transicion += 1
                 state = 'q'
             elif state == 'q':
@@ -150,10 +153,13 @@ class AutomataPila():
                 should_restart = True
                 while should_restart:
                     should_restart = False
-                    for j in range(0, len(self.gramatica.producciones)):
-                        current_production = self.gramatica.producciones[j]
-                        stack_top = stack[len(stack) - 1]
+                    # for j in range(0, len(self.gramatica.producciones)):
+                    for current_production in self.gramatica.producciones:
+                        # current_production = self.gramatica.producciones[j]
+                        stack_top = stack[-1]
                         # print(" Tipo: " + stack_top.tipo + " Valor: " + stack_top.valor)
+                        # print(" Tipo = No Terminal: " + str(stack_top.tipo == "No Terminal") +
+                        #       " Valor = Valor: " + str(stack_top.valor == current_production.nombre))
                         if stack_top.tipo == "No Terminal" and stack_top.valor == current_production.nombre:
                             if len(current_production.derivaciones) == 1:
 
@@ -168,16 +174,18 @@ class AutomataPila():
                                                                                no_Transicion,
                                                                                generarString(stack),
                                                                                input[i]))
-                                reportes.append(Reporte(no_Transicion,
-                                                        generarString(stack),
-                                                        input[i],
-                                                        "q,$," + stack_top.valor + ";q," + generarString(derivaciones)))
+                                report = Reporte(no_Transicion,
+                                                 generarString(stack),
+                                                 input[i],
+                                                 "q,$," + stack_top.valor + ";q," + generarString(derivaciones))
+                                reportes.append(report)
                                 no_Transicion += 1
 
                                 stack.pop()
                                 for der in derivacionesInvertidas:
                                     stack.append(der)
                                 should_restart = True
+                                report.imprimir()
                                 break
                             else:
                                 currentChar = input[i]
@@ -205,14 +213,15 @@ class AutomataPila():
                                 derivaciones = np.flip(derivacion)
                                 imagenes.append(generarAutomataGraficoDinamico(self.gramatica,
                                                                                state,
-                                                                               "λ," + stack_top.valor + ";q," + generarString(
-                                                                                   derivaciones),
+                                                                               "λ," + stack_top.valor + ";q," +
+                                                                               generarString(derivaciones),
                                                                                no_Transicion, generarString(stack),
                                                                                input[i]))
-                                reportes.append(Reporte(no_Transicion,
-                                                        generarString(stack),
-                                                        input[i],
-                                                        "q,$," + stack_top.valor + ";q," + generarString(derivaciones)))
+                                report = Reporte(no_Transicion,
+                                                 generarString(stack),
+                                                 input[i],
+                                                 "q,$," + stack_top.valor + ";q," + generarString(derivaciones))
+                                reportes.append(report)
                                 no_Transicion += 1
 
                                 stack.pop()
@@ -220,7 +229,7 @@ class AutomataPila():
                                     # simbolos del automata arreglar
                                     if der.valor != "$":
                                         stack.append(der)
-
+                                report.imprimir()
                                 should_restart = True
                                 break
                             # ejemplo de como quedaria la pila en este momento: [z N z  # ]
@@ -230,14 +239,16 @@ class AutomataPila():
                                                                            "λ," + stack_top.valor + ";q," + input[i],
                                                                            no_Transicion, generarString(stack),
                                                                            input[i]))
-                            reportes.append(Reporte(no_Transicion,
-                                                    generarString(stack),
-                                                    input[i],
-                                                    "q,$," + stack_top.valor + ";q," + input[i]))
+                            report = Reporte(no_Transicion,
+                                             generarString(stack),
+                                             input[i],
+                                             "q,$," + stack_top.valor + ";q," + input[i])
+                            reportes.append(report)
                             no_Transicion += 1
                             i += 1
                             stack.pop()
                             should_restart = True
+                            report.imprimir()
                             break
                             # ejemplo de como quedaria la pila en este momento: [N z  # ]
                         # input = "zazabzbz"
@@ -250,13 +261,14 @@ class AutomataPila():
                                                                            "automata con pila",
                                                                            no_Transicion, generarString(stack),
                                                                            input[i]))
-                            reportes.append(Reporte(no_Transicion,
-                                                    generarString(stack),
-                                                    input[i],
-                                                    "Error, la entrada no se adapta al automata con pila"))
+                            report = Reporte(no_Transicion,
+                                             generarString(stack),
+                                             input[i],
+                                             "Error, la entrada no se adapta al automata con pila")
+                            reportes.append(report)
                             no_Transicion += 1
-
                             should_restart = False
+                            report.imprimir()
                             break
                             # Error, la cadena de entrada no se adapta al automata con pila
 
@@ -266,10 +278,12 @@ class AutomataPila():
                                                                            "λ," + stack_top.valor + ";q," + input[-1],
                                                                            no_Transicion, generarString(stack),
                                                                            input[-1]))
-                            reportes.append(Reporte(no_Transicion,
-                                                    generarString(stack),
-                                                    "$",
-                                                    "q,$,#;f,"))
+                            report = Reporte(no_Transicion,
+                                             generarString(stack),
+                                             "$",
+                                             "q,$,#;f,$")
+                            reportes.append(report)
+                            report.imprimir()
                             no_Transicion += 1
                             stack.pop()
                             state = "f"
@@ -279,7 +293,7 @@ class AutomataPila():
                             should_restart = True
 
             elif state == "f":
-                if i == input_length and len(stack) == 0:
+                if i == input_length-1 and len(stack) == 0:
                     print("longitud de la cadena: " + str(i))
                     print("longitud de la pila: " + str(len(stack)))
                     for elemento in stack:
@@ -291,10 +305,12 @@ class AutomataPila():
                                                                    no_Transicion,
                                                                    generarString(stack),
                                                                    ""))
-                    reportes.append(Reporte(no_Transicion,
-                                            "",
-                                            "",
-                                            "f"))
+                    report = Reporte(no_Transicion,
+                                     "",
+                                     "",
+                                     "f")
+                    reportes.append(report)
+                    report.imprimir()
                     self.reportesTabla = reportes
                     self.imagenesGraphviz = imagenes
                     return True
@@ -309,10 +325,12 @@ class AutomataPila():
                                                                    no_Transicion,
                                                                    generarString(stack),
                                                                    input[i]))
-                    reportes.append(Reporte(no_Transicion,
-                                            generarString(stack),
-                                            input[i],
-                                            "f,$,$;q,$" + input[i]))
+                    report = Reporte(no_Transicion,
+                                     generarString(stack),
+                                     input[i],
+                                     "f,$,$;q,$")
+                    reportes.append(report)
+                    report.imprimir()
                     self.reportesTabla = reportes
                     self.imagenesGraphviz = imagenes
                     return False
