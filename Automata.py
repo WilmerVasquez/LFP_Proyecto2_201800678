@@ -190,15 +190,15 @@ class AutomataPila():
                             else:
                                 currentChar = input[i]
                                 derivacion = []
+
                                 for derivacionActual in current_production.derivaciones:
                                     if derivacionActual[0].valor == currentChar:
                                         derivacion = np.flip(derivacionActual, 0)
-
                                 if len(derivacion) == 0:
                                     noTerminales = current_production.obtenerNoTerminales()
-
                                     if current_production.verificarTerminal(currentChar):
-                                        derivacion = np.flip(current_production.obtenerDerivacion(currentChar), 0)
+                                        derivacion = np.flip(current_production.obtenerDerivacion(currentChar),
+                                                             0)
                                     else:
                                         for noterm in noTerminales:
                                             if self.gramatica.verificarNoTerminalProduce(noterm, currentChar):
@@ -245,7 +245,9 @@ class AutomataPila():
                                              "q,$," + stack_top.valor + ";q," + input[i])
                             reportes.append(report)
                             no_Transicion += 1
-                            i += 1
+                            if i < input_length - 1:
+                                i += 1
+
                             stack.pop()
                             should_restart = True
                             report.imprimir()
