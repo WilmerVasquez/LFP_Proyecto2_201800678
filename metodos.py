@@ -167,10 +167,11 @@ def desplegarTablaHTML(reportes, nombre, resultado):
                   </a>
                 </nav>
                 <style>
-                table, th {
+                table, th, td {
                   border: 1px solid black;
                   border-collapse: collapse;
                 }
+                </style>
             </head>
             <body>""")
         f.write("<br><br>\n")
