@@ -28,8 +28,11 @@ if __name__ == '__main__':
             cargarArchivo()
         elif opcion == 2:
             mostrarInfoGramatica()
+
         elif opcion == 3:
             generarAutomataPila()
         elif opcion == 4:
             generarReporteGrafico()
+        elif opcion == 5:
+            generarReporteTabla()
 

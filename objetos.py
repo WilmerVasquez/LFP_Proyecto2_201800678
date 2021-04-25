@@ -105,3 +105,10 @@ class Simbolo():
         self.valor = valor
 
 
+class Reporte():
+    def __init__(self, iteracion=None, pila=None, entrada=None, transicion=None):
+        self.iteracion = iteracion
+        self.pila = pila
+        self.entrada = entrada
+        self.transicion = transicion
+
